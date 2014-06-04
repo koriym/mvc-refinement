@@ -144,7 +144,7 @@ Having said all that, it may be that ADR could be considered an expanded or supe
 There are hints of ADR, espeically the _Responder_ element, in [Separated Presentation](http://martinfowler.com/eaaDev/SeparatedPresentation.html). Although the article is well worth reading, Separated Presentation sounds more like a meta-pattern that describes the general concern of separating data from presentatinon, not a specific approach to doing so.
 
 
-## Examples of MVC vs ADR
+## Examples of MVC vs ADR vs *R
 
 ### MVC Starting Point
 
@@ -345,10 +345,112 @@ class BlogCreateResponder extends Responder
 }
 ?>
 ```
-
 Again, we can see numerous refactoring opportunities here, especially in the domain model work. The point is that the _Action_ does not perform any  _Responder_ work at all. That work is handled entirely by the _Responder_ logic.
 
 You can review an extended set of sample ADR code [here](https://github.com/pmjones/mvc-refinement/blob/master/example-code).
+
+**WIP**
+
+### BEAR.Sunday *R Pattern
+
+Here's *R directory structure:
+
+    Resource/
+        Page/
+            Blog.php  # onGet(), onPost(), onPut(), onDelete()
+            Blog.html.php
+        App/
+            Blog.php  # onGet(), onPost(), onPut(), onDelete()
+            Blog.html.php
+
+
+```php
+<?php
+
+use BEAR\Resource\Code;
+use BEAR\Resource\ResourceObject;
+use BEAR\Sunday\Inject\ResourceInject;
+use BEAR\Resource\Header;
+use BEAR\Sunday\Annotation\Form;
+
+class BlogCreate extends ResourceObject
+{
+    use ResourceInject;
+
+    public function onGet($title = '', $body = '')
+    {
+        // not a POST request, called first time with no defaults,
+        // or with defaults set by interceptor in case of validation error.
+        $this->body = ['title' => $title, 'body' => $body];
+        
+        return $this;
+    }
+
+    /**
+     * @Form
+     */
+    public function onPost($title, $body)
+    {
+        // request application resource
+        $blog = $this->resource
+            ->get
+            ->uri('app://self/blog')
+            ->withQuery(['title' => $title, 'body' => $body])
+            ->eager
+            ->requeset();
+        // redirect
+        $this->code = Code::SEE_OTHER;
+        $this->headers[Header::LOCATION] = "/blog/edit/{$blog['id']}";
+
+        return $this;
+    }
+}
+```
+
+```php
+<?php
+
+use Ray\Aop\MethodInterceptor;
+
+class BlogFormValidateInterceptor implements MethodInterceptor
+{
+    public function invoke(\Ray\Aop\MethodInvocation $invocation)
+    {
+        $blog = $invocation->getThis();
+        if ($blog->isValid($invocation->getArguments())) {
+            // Valid !, Request POST;
+            return $invocation->proceed();
+        }
+        // Invalid, Request GET with defaults content
+        return $blog->onGet($invocation->getArguments());
+    }
+}
+```
+
+Or @SqlMap SQL mapper annotation and @SeeOther redircet annotation works better ?
+
+```php
+<?php
+
+use BEAR\Resource\ResourceObject;
+use BEAR\Sunday\Annotation\Form;
+
+class BlogCreate extends ResourceObject
+{
+    // ...
+    
+    /**
+     * @Form
+     * @SqlMap(id="blog_create")
+     * @SeeOther(url="/blog/edit/{?id}")
+     */
+    public function onPost($title, $body)
+    {
+        return $this;
+    }
+}
+```
+
 
 ## Commentary
 
