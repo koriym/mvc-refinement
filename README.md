@@ -386,8 +386,8 @@ class BlogCreate extends ResourceObject
 
     public function onGet($title = '', $body = '')
     {
-        // not a POST request, called first time with no defaults,
-        // or with defaults set by interceptor in case of validation error.
+        // Called first time with no default arguments.
+        // Validation error if second call exits, Called form BlogFormValidateInterceptor with input arguments.
         $this->body = ['title' => $title, 'body' => $body];
         
         return $this;
