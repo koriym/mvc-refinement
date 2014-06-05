@@ -143,8 +143,16 @@ Having said all that, it may be that ADR could be considered an expanded or supe
 
 There are hints of ADR, espeically the _Responder_ element, in [Separated Presentation](http://martinfowler.com/eaaDev/SeparatedPresentation.html). Although the article is well worth reading, Separated Presentation sounds more like a meta-pattern that describes the general concern of separating data from presentatinon, not a specific approach to doing so.
 
+### RMSR (Resource-Method-Separated-Representation)
 
-## Examples of MVC vs ADR vs *R
+The archtecture pattern of BEAR.Reousrce could be considered an expanded or superset variation of RMR. Theres is a presentation logic is in resource. But it is contextually injected with interfaece, The resource-method works 100% presentation logic free as Martin Fowler quoted about **Separated Presentation** as follows.
+
+> "Domain objects should be completely self contained and work without reference to the presentation, they should also be able to support multiple presentations,"
+http://martinfowler.com/eaaDev/uiArchs.html
+
+"multiple presentations" supoorted. HTML rendering with template engine, or HAL+JSON can be swtiched without touching resource class.
+
+## Examples of MVC vs ADR vs RMSR
 
 ### MVC Starting Point
 
@@ -349,9 +357,7 @@ Again, we can see numerous refactoring opportunities here, especially in the dom
 
 You can review an extended set of sample ADR code [here](https://github.com/pmjones/mvc-refinement/blob/master/example-code).
 
-**WIP**
-
-### BEAR.Resource (RMR'?)
+### RMSR
 
 Here's BEAR.Resource directory structure:
 
