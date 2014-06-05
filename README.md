@@ -351,9 +351,9 @@ You can review an extended set of sample ADR code [here](https://github.com/pmjo
 
 **WIP**
 
-### BEAR.Sunday *R Pattern
+### BEAR.Resource (RMR'?)
 
-Here's *R directory structure:
+Here's BEAR.Resource directory structure:
 
     Resource/
         Page/
