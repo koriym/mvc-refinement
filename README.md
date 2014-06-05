@@ -378,7 +378,7 @@ use BEAR\Resource\Code;
 use BEAR\Resource\ResourceObject;
 use BEAR\Sunday\Inject\ResourceInject;
 use BEAR\Resource\Header;
-use BEAR\Sunday\Annotation\Form;
+use BEAR\Sunday\Annotation\Validate;
 
 class BlogCreate extends ResourceObject
 {
@@ -440,14 +440,14 @@ Or @SqlMap SQL mapper annotation and @SeeOther redircet annotation works better 
 <?php
 
 use BEAR\Resource\ResourceObject;
-use BEAR\Sunday\Annotation\Form;
+use BEAR\Sunday\Annotation\Validate;
 
 class BlogCreate extends ResourceObject
 {
     // ...
     
     /**
-     * @Form
+     * @Validate
      * @SqlMap(id="blog_create")
      * @SeeOther(url="/blog/edit/{?id}")
      */
