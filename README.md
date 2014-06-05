@@ -146,12 +146,12 @@ There are hints of ADR, espeically the _Responder_ element, in [Separated Presen
 
 ### RMSR (Resource-Method-Separated-Representation)
 
-The archtecture pattern of BEAR.Reousrce could be considered an expanded or superset variation of RMR. Theres is a presentation logic is in resource. But it is contextually injected with interfaece, The resource-method works 100% presentation logic free as Martin Fowler quoted about **Separated Presentation** as follows.
+The archtecture pattern of BEAR.Reousrce could be considered an expanded or superset variation of RMR. Theres is a presentation logic is in resource. However it is contextually injected with interfaece and the resource-method works 100% presentation logic free as Martin Fowler quoted about **Separated Presentation** as follows.
 
 > "Domain objects should be completely self contained and work without reference to the presentation, they should also be able to support multiple presentations,"
 http://martinfowler.com/eaaDev/uiArchs.html
 
-"multiple presentations" supoorted. HTML rendering with template engine, or HAL+JSON can be swtiched without touching resource class.
+"Multiple presentations" also supoorted. HTML rendering with template engine and HAL+JSON can be swtiched without touching resource class.
 
 ## Examples of MVC vs ADR vs RMSR
 
