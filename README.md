@@ -10,7 +10,8 @@ Organizes a single interaction between a web client and a web application into t
 
 The term MVC has experienced some [semantic diffusion](http://martinfowler.com/bliki/SemanticDiffusion.html) from its original meaning, especially in a web context. Because of this diffusion, the _Action-Domain-Responder_ pattern description is intended as a web-specific refinement of the MVC pattern.
 
-I think ADR more closely fits what we actually do in web development on a daily basis. For example, this pattern is partly revealed by how we generally do web routing and dispatch. We generally route and dispatch *not* to a controller class per se, but to a particular action method within a controller class.
+I think ADR more closely fits what we actually do in web developmentForm
+ daily basis. For example, this pattern is partly revealed by how we generally do web routing and dispatch. We generally route and dispatch *not* to a controller class per se, but to a particular action method within a controller class.
 
 It is also partly revealed by the fact that we commonly think of the template as the _View_, when in a web context it may be more accurate to say that the HTTP response is the _View_.  As such, I think ADR may represent a better separation of concerns than MVC does in a web context.
 
@@ -393,7 +394,7 @@ class BlogCreate extends ResourceObject
     }
 
     /**
-     * @Form
+     * @Validate
      */
     public function onPost($title, $body)
     {
